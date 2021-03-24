@@ -1,1 +1,1 @@
-"""Models for app."""
+"""Models for Cupcake app."""

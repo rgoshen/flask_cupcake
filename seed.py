@@ -1,20 +1,22 @@
-"""Seed file to make sample data for db."""
-
-from models import
 from app import app
+from models import db, Cupcake
 
-# Create all tables
+
 db.drop_all()
 db.create_all()
 
-# If table isn't empty, empty it
+c1 = Cupcake(
+    flavor="cherry",
+    size="large",
+    rating=5,
+)
 
+c2 = Cupcake(
+    flavor="chocolate",
+    size="small",
+    rating=9,
+    image="https://www.bakedbyrachel.com/wp-content/uploads/2018/01/chocolatecupcakesccfrosting1_bakedbyrachel.jpg"
+)
 
-# Create objects
-test = Test(first_name='Alan', last_name='Alda')
-
-# Add new objects to session, so they'll persist
-db.session.add(test)
-
-# Commit--otherwise, this never gets saved!
+db.session.add_all([c1, c2])
 db.session.commit()
