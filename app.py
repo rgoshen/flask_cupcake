@@ -16,10 +16,25 @@ connect_db(app)
 # *****************************
 # RESTFUL CUPCAKES JSON API
 # *****************************
-@app.route('/api/cupcakes')
+@app.route("/api/cupcakes")
 def get_all_cupcakes():
     """Return all cupcakes in db as JSON.
+
+    Returns JSON like:
+        {cupcakes: [{id, flavor, rating, size, image}, ...]}
     """
 
     all_cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
     return jsonify(cupcakes=all_cupcakes)
+
+
+@app.route("/api/cupcakes/<int:cupcake_id>")
+def get_cupcake(cupcake_id):
+    """Returns JSON for a specific cupcake.
+
+    Returns JSON like:
+        {cupcake: [{id, flavor, rating, size, image}]}
+    """
+
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+    return jsonify(cupcake=cupcake.serialize())
