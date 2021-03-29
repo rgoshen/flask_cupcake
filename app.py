@@ -11,3 +11,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "flyersareawesome"
 
 connect_db(app)
+
+
+# *****************************
+# RESTFUL CUPCAKES JSON API
+# *****************************
+@app.route('/api/cupcakes')
+def get_all_cupcakes():
+    """Return all cupcakes in db as JSON.
+    """
+
+    all_cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
+    return jsonify(cupcakes=all_cupcakes)
